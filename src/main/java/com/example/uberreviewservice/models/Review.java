@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.util.Date;
 
@@ -12,6 +13,7 @@ import java.util.Date;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@EntityListeners(AuditingEntityListener.class)
 @Entity
 @Table(name = "booking_review")
 public class Review {
@@ -35,4 +37,9 @@ public class Review {
     @LastModifiedDate
     private Date updatedAt;
 
+
+    @Override
+    public String toString() {
+        return "Review: " + this.content +" " + this.ratings + " " + this.createdAt + " " + this.updatedAt;
+    }
 }
