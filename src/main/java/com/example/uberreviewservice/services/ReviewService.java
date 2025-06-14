@@ -1,14 +1,12 @@
 package com.example.uberreviewservice.services;
 
-import com.example.uberreviewservice.models.Booking;
-import com.example.uberreviewservice.models.Review;
+import com.example.uberreviewservice.models.Driver;
 import com.example.uberreviewservice.repositories.BookingRepository;
+import com.example.uberreviewservice.repositories.DriverRepository;
 import com.example.uberreviewservice.repositories.ReviewRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
-import java.util.List;
 import java.util.Optional;
 
 
@@ -17,39 +15,56 @@ public class ReviewService implements CommandLineRunner {
 
     private final BookingRepository bookingRepository;
     private final ReviewRepository reviewRepository;
+    private final DriverRepository driverRepository;
 
-    public ReviewService(ReviewRepository reviewRepository, BookingRepository bookingRepository) {
+    public ReviewService(ReviewRepository reviewRepository, BookingRepository bookingRepository, DriverRepository driverRepository) {
         this.reviewRepository = reviewRepository;
         this.bookingRepository = bookingRepository;
+        this.driverRepository = driverRepository;
     }
 
     @Override
     public void run(String... args) throws Exception {
         System.out.println("*********************");
 
-        Review r = Review.builder().content("Amazing ride").rating(4.2).build();
+//        Review r = Review.builder().content("Amazing ride").rating(4.2).build();
+//
+//        Booking b = Booking
+//                .builder()
+//                .review(r)
+//                .endTime(new Date())
+//                .build();
+//
+//        bookingRepository.save(b);
+//
+//        System.out.println(r);
+////       // this code executes sql queryAdd commentMore actions
+//        System.out.println(r.getId());
+//        List<Review> reviews = reviewRepository.findAll();
+//
+//        for(Review review : reviews) {
+//            System.out.println(r.getContent());
+//        }
+//
+//        Optional<Booking> booking = bookingRepository.findById(5L);
+//
+//        if(booking.isPresent()){
+//            bookingRepository.delete(booking.get());
+//        }
 
-        Booking b = Booking
-                .builder()
-                .review(r)
-                .endTime(new Date())
-                .build();
+//        List<Booking> bookings = bookingRepository.findByDriverId(2L);
+//
+//        for(Booking booking : bookings) {
+//            System.out.println(booking.getBookingStatus());
+//        }
 
-        bookingRepository.save(b);
+//        Optional<Driver> driver = driverRepository.findByIdAndLicenseNumber(1L, "DL1212");
+//        if(driver.isPresent()) {
+//            System.out.println(driver.get().getName());
+//        }
 
-        System.out.println(r);
-//       // this code executes sql queryAdd commentMore actions
-        System.out.println(r.getId());
-        List<Review> reviews = reviewRepository.findAll();
-
-        for(Review review : reviews) {
-            System.out.println(r.getContent());
-        }
-
-        Optional<Booking> booking = bookingRepository.findById(5L);
-
-        if(booking.isPresent()){
-            bookingRepository.delete(booking.get());
-        }
+//        Optional<Driver> driver = driverRepository.rawFindByIdAndLicenseNumber(1L, "DL1212");
+        Optional<Driver> driver = driverRepository.hqlFindByIdAndLicenseNumber(1L, "DL1212");
+        System.out.println(driver.get().getName());
     }
 }
