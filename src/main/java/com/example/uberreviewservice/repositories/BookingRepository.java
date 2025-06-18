@@ -12,5 +12,4 @@ public interface BookingRepository extends JpaRepository<Booking, Long> {
     List<Booking> findByDriverId(Long driverId);
 
     List<Booking> findAllByDriverIn(List<Driver> drivers);
-
 }
