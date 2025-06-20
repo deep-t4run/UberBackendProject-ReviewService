@@ -3,6 +3,7 @@ package com.example.uberreviewservice.services;
 import com.example.uberreviewservice.models.Review;
 import com.example.uberreviewservice.repositories.ReviewRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -34,5 +35,11 @@ public class ReviewServiceImpl implements ReviewService{
         } catch (Exception e){
             return false;
         }
+    }
+
+    @Override
+    @Transactional
+    public Review publishReview(Review givenReview) {
+        return this.reviewRepository.save(givenReview);
     }
 }
